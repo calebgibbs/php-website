@@ -2,7 +2,7 @@
 
   $this->layout('master', [
     'title'=>'Post Page',
-    'desc'=>'Your latest post!'
+    'desc'=>'view an individual post'
   ]);
 
 ?>
