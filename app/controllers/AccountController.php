@@ -4,8 +4,8 @@ class AccountController extends PageController {
 
 
 
-	public function construct($dbc) {
-		parent::construct();
+	public function __construct($dbc) {
+		parent::__construct();
 
 		// Save the database connection
 		$this->dbc = $dbc;
@@ -19,6 +19,7 @@ class AccountController extends PageController {
 
 		// did the user submit the new post form?
 		if (isset($_POST ['new-post']) ) {
+
 			$this->processNewPost();
 
 		}
@@ -75,6 +76,8 @@ class AccountController extends PageController {
 
 	}
 private function processNewPost(){
+
+	
 	// count errors
 	$totalErrors = 0;
 
@@ -100,7 +103,26 @@ private function processNewPost(){
 		$totalErrors ++;
 	} 
 
-	//if there are no errors  
+	if( $totalErrors == 0) { 
+		//filter the data 
+		$title = $this->dbc->real_escape_string($title);
+		$desc = $this->dbc->real_escape_string($desc); 
+
+		//get id of loggedin user 
+		$userID = $_SESSION['id'];
+		//SQL(INSERT)  
+		$sql = "INSERT INTO posts (title, description, user_id) 
+				VALUES ('$title', '$desc', $userID) "; 
+
+		$this->dbc->query( $sql ); 
+
+		//make sure it worked
+
+
+		//success message
+
+
+	} 
 
 }
 
