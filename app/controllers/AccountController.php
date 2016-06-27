@@ -4,26 +4,24 @@ class AccountController extends PageController {
 
 
 
-	public function __construct($dbc) {
-		parent::__construct();
+	public function construct($dbc) {
+		parent::construct();
 
 		// Save the database connection
 		$this->dbc = $dbc;
-
+		// checks if you are logged in. if not will redirect to log in page
 		$this->mustBeLoggedIn();
 
 		// Did the user submit new contact details?
 		if( isset( $_POST['update-contact'] ) ) {
 			$this->processNewContactDetails();
-		} 
-
-		// did the user submit the new post form?
-
-		if(isset($_POST['new-post'])) {
-			$this->processNewPost();
 		}
 
+		// did the user submit the new post form?
+		if (isset($_POST ['new-post']) ) {
+			$this->processNewPost();
 
+		}
 	}
 
 	public function buildHTML() {
@@ -75,14 +73,35 @@ class AccountController extends PageController {
 
 
 
-	} //end of contact details 
-
-	private function processNewPost() { 
-		echo '<pre>'; 
-		print_r($_POST); 
-		die();
 	}
+private function processNewPost(){
+	// count errors
+	$totalErrors = 0;
+
+	$title = trim($_POST['title']);
+	$desc= trim($_POST['desc']);
+	//title
+	if(strlen ( $title )==0){
+		$this->data['titleMessage'] = '<p>Required</p>';
+		$totalErrors ++;
+
+	} elseif( strlen ($title )>100){
+		$this->data['titleMessage'] = '<p>Cannot be more than 100 characters</p>';
+		$totalErrors ++;
+	}
+
+//description
+	if(strlen ( $desc )==0){
+		$this->data['descMessage'] = '<p>Required</p>';
+		$totalErrors ++;
+
+	} elseif( strlen ($desc )>1000){
+		$this->data['descMessage'] = '<p>Cannot be more than 1000 characters</p>';
+		$totalErrors ++;
+	} 
+
+	//if there are no errors  
 
 }
 
-
+}

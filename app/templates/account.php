@@ -18,14 +18,19 @@
 	<div>
 		<label for="title">Title: </label>
 		<input type="text" name="title" id="title">
+		
+		<?= isset($titleMessage) ? $titleMessage : '' ?>
+	
 	</div>
 	<div>
 		<label for="desc">Description: </label>
 		<textarea name="desc" id="desc" cols="30" rows="10"></textarea>
+		<?= isset($descMessage) ? $descMessage : '' ?>
 	</div>
 	<div>
 		<label for="image">Image:</label>
-		<input type="file" name="image" id="image"><!-- multiple allows you to add multiple files. doesnt need a number -->
+		<input type="file" name="image[]" id="image" multiple><!-- multiple allows you to add multiple files. doesnt need a number -->
+		<?= isset($fileMessage) ? $fileMessage : '' ?>
 	</div>
 
 	<input type="submit" name="new-post">
