@@ -14,7 +14,7 @@ public function __construct($dbc){
 
 public function buildHTML() {
 
-	echo $this->plates->render('post');
+	echo $this->plates->render('post', $this->data);
 
 }
 
@@ -28,7 +28,17 @@ private function getPostData() {
 			FROM posts 
 			WHERE id = $postID"; 
 
-	die($sql);
+	//run the sql 
+	$result = $this->dbc->query($sql);
+
+	//if the query failed 
+	if( !$result || $result->num_rows == 0 ) {  
+		//redirect ot 404 page 
+		header('Location: index.php?page=404');
+	}else{ 
+		//yay! 
+		$this->data['post'] = $result->fetch_assoc();
+	}
 	
 }
 

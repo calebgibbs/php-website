@@ -9,4 +9,4 @@
 
 <body>
 
-<h1>Your Post!</h1>
+<h1><?= $post['title'] ?></h1>
