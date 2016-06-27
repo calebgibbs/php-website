@@ -43,6 +43,11 @@ switch($page) {
 	case 'stream':
 		require 'app/controllers/StreamController.php';
 		$controller = new StreamController($dbc);
+	break; 
+
+	case 'post': 
+		require 'app/controllers/PostController.php';
+		$controller = new PostController($dbc);
 	break;
 
 	case 'account':

@@ -117,9 +117,13 @@ private function processNewPost(){
 		$this->dbc->query( $sql ); 
 
 		//make sure it worked
+		if( $this->dbc->affected_rows ) { 
+			$this->data['postMessage'] = 'Success!';
+		}else{
+			$this->data['postMessage'] = 'Something went wrong';
+		}
 
-
-		//success message
+		
 
 
 	} 

@@ -34,6 +34,7 @@
 	</div>
 
 	<input type="submit" name="new-post">
+	<?= isset($postMessage) ? $postMessage : '' ?>
 
 </form>
 
